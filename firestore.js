@@ -1,31 +1,71 @@
-// fireStore.js
-function initializeFirestore() {
-  const db = firebase.firestore();
-  console.log("Firestore initialized");
+var db;
+
+function initializeFirestore()
+{
+  db = firebase.firestore();
 }
 
-function saveGameData(userId, data) {
-  const db = firebase.firestore();
-  db.collection("gameData").doc(userId).set(data)
-    .then(() => {
-      console.log("Game data saved successfully");
-    })
-    .catch((error) => {
-      console.error("Error saving game data: ", error);
-    });
+//TODO: add subcollections support 
+
+function addDocument(collectionName, data, isJson){
+  if(!db || !collectionName)
+    return;
+
+  if(isJson){
+    try {
+      data = JSON.parse(data);
+    } catch(error){ 
+      console.log("Couldnt insert data to db, invalid json");
+      return;
+    }
+  }
+
+  return db.collection(collectionName).add(data);
 }
 
-function loadGameData(userId, callback) {
-  const db = firebase.firestore();
-  db.collection("gameData").doc(userId).get()
-    .then((doc) => {
-      if (doc.exists) {
-        callback(doc.data());
-      } else {
-        console.log("No game data found");
-      }
-    })
-    .catch((error) => {
-      console.error("Error loading game data: ", error);
-    });
+function setDocument(collectionName, documentName, data, isJson, isMerge){
+  if(!db || !collectionName || !documentName)
+    return;
+
+  if(isJson){
+    try {
+      data = JSON.parse(data);
+    } catch(error){ 
+      console.log("Couldnt insert data to db, invalid json");
+      return;
+    }
+  }
+
+  return db.collection(collectionName).doc(documentName).set(data, { merge: isMerge });
+}
+
+function updateDocument(collectionName, documentName, data, isJson){
+  // TODO: add support for arrays
+  if(!db || !collectionName || !documentName)
+    return;
+
+  if(isJson){
+    try {
+      data = JSON.parse(data);
+    } catch(error){ 
+      console.log("Couldnt insert data to db, invalid json");
+      return;
+    }
+  }
+
+  return db.collection(collectionName).doc(documentName).update(data);
+}
+
+function deleteDocument(collectionName, documentName){
+  if(!db || !collectionName || !documentName)
+    return;
+
+  return db.collection(collectionName).doc(documentName).delete();
+}
+
+function getDocument(collectionName, documentName){
+  if(!db || !collectionName || !documentName)
+    return;
+
+  return db.collection(collectionName).doc(documentName).get();
 }
