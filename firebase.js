@@ -1,11 +1,11 @@
 // firebase.js
 var firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyANZ0SDhqoc62msSooQFs3SEb4XbC7gvk4",
+  authDomain: "dev.1v1.lol",
+  projectId: "dev1v1",
+  storageBucket: "dev1v1.appspot.com",
+  messagingSenderId: "90097883404",
+  appId: "1:90097883404:android:0931a7bbf3e74f2b9a5129",
   measurementId: "YOUR_MEASUREMENT_ID"
 };
 
